@@ -7,12 +7,33 @@
 </ion-header>
 
 <ion-content padding>
+
+  <!-- Componente que recarrega novo conteudo ao arrastar -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+  </ion-refresher> 
+
+  <!-- Componente que carrega o conteudo inicial -->
   <ion-list>
     <ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed.data.url)">
       <ion-avatar item-left>
           <img src="{{feed.data.thumbnail}}">
       </ion-avatar>
         {{feed.data.title}}
+        <p>{{feed.data.domain}}</p>
     </ion-item>
   </ion-list>
+  
+  <!-- Componente de Infinity Scroll -->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+       loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+ </ion-infinite-scroll> 
+
 </ion-content>
